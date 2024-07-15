@@ -14,7 +14,7 @@
     @yield('css')
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
 
 <!-- Begin page -->
 <div id="layout-wrapper">
@@ -59,7 +59,7 @@
     <div class="main-content">
 
         <div class="page-content">
-            <div class="container-fluid">
+            <div class="container-fluid" ng-controller="viewCtrl">
 
                 @yield('content')
 
@@ -851,7 +851,19 @@
 <!-- JAVASCRIPT -->
 
 @include('admin.layouts.js')
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('myCtrl', function($scope, $http) {
+
+    })
+    var viewFunction = ($scope, $http) => {
+
+    }
+</script>
 @yield('js')
+<script>
+    myApp.controller('viewCtrl',viewFunction)
+</script>
 </body>
 
 </html>

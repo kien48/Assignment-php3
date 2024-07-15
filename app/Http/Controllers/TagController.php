@@ -11,14 +11,19 @@ class TagController extends Controller
 {
     public function tag(int $id, string $slug)
     {
-        $dataTag = DB::table('article_tag')->where('tag_id', $id)->get();
-        $tag = Tag::query()->where('id', $id)->get();
-        $dataArticleTag = [];
+        $dataTag = DB::table('article_tag')
+            ->where('tag_id', $id)
+            ->pluck('article_id');
 
-        foreach ($dataTag as $item){
-            $dataArticleTag[] = Article::query()->with(['author','tags'])->where('id', $item->article_id)->first();
-        }
+        $tag = Tag::query()
+            ->where('id', $id)
+            ->first();
 
+        $dataArticleTag = Article::query()
+            ->with(['author', 'tags'])
+            ->whereIn('id', $dataTag)
+            ->where('status', 'published')
+            ->get();
         return view('tag', compact('dataArticleTag','tag'));
     }
 }

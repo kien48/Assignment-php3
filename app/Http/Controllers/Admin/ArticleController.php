@@ -19,7 +19,7 @@ class ArticleController extends Controller
     const PATH_VIEW = 'admin.articles.';
     public function index()
     {
-        $data = Article::query()->orderByDesc('id')->get();
+        $data = Article::query()->with(['tags','catelogue','author','editor'])->orderByDesc('id')->get();
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 

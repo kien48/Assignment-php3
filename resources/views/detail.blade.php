@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+@section('title',$model->title)
 @section('content')
     <section class="section">
         <div class="container">
@@ -13,13 +13,17 @@
                         <h1 class="h2">{{$model->title}} </h1>
                         <ul class="card-meta my-3 list-inline">
                             <li class="list-inline-item">
-                                <a href="author-single.html" class="card-meta-author">
-                                    <img src="images/john-doe.jpg">
+                                <a href="{{route('author.detail', $model->author->id)}}" class="card-meta-author">
+                                    @if(!$model->author->avatar)
+                                        <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
+                                    @else
+                                        <img src="{{\Storage::url($model->author->avatar)}}">
+                                    @endif
                                     <span>{{$model->author->name}}</span>
                                 </a>
                             </li>
                             <li class="list-inline-item">
-                                <i class="ti-timer"></i>2 Min To Read
+                                <i class="ti-timer"></i>{{$model->views}} lượt xem
                             </li>
                             <li class="list-inline-item">
                                 <i class="ti-calendar"></i>{{$model->created_at->format('d-m-Y')}}

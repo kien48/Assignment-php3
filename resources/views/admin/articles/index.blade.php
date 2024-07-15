@@ -63,16 +63,23 @@
                         </thead>
                         <tbody>
                         @foreach($data as $item)
+                            @php
+                            if($item->editor){
+                                $editor = $item->editor->name;
+                            }else{
+                                $editor = "Chưa có";
+                            }
+                            @endphp
                            <tr>
                                <td>{{$item->id}}</td>
                                <td>{{$item->title}}</td>
-                               <td>{{$item->id}}</td>
+                               <td>{{$item->catelogue->name}}</td>
                                <td>
                                    <img src="{{\Storage::url($item->image)}}" alt="" height="100px" class="img-thumbnail">
                                </td>
                                <td>{{$item->views}}</td>
-                               <td>{{$item->author_id}}</td>
-                               <td>{{$item->editor_id}}</td>
+                               <td>{{$item->author->name}}</td>
+                               <td>{{$editor}}</td>
                                <td>{{$item->status}}</td>
                                <td>{{$item->created_at}}</td>
                                <td>{{$item->updated_at}}</td>
@@ -110,7 +117,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
-    <script src="{{asset('/themes/velzon/')}}/assets/js/pages/datatables.init.js"></script>
+    <script>
+        new DataTable('#example', {
+            order: [[0, 'desc']]
+        });
+    </script>
     <!-- App js -->
     <script src="{{asset('/themes/velzon/')}}/assets/js/app.js"></script>
 @endsection

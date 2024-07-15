@@ -56,11 +56,16 @@
                                     </select>
                                 </div>
                                 <div class="col-xxl-6 col-md-6">
-                                    <label for="basiInput" class="form-label">Thẻ</label>
-                                    <select class="form-select" multiple aria-label="multiple select example" name="tag_id">
-                                        @foreach($tags as $tag)
-                                            <option value="{{$tag->id}}">{{$tag->name}}</option>
-                                        @endforeach
+                                    <div class="d-flex justify-content-between">
+                                        <label for="basiInput" class="form-label">Thẻ</label>
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">
+                                            Thêm thẻ
+                                        </button>
+                                    </div>
+                                    <select class="form-select" multiple name="tag_id[]">
+                                        <option ng-repeat="tag in tags" value="@{{ tag.id }}">
+                                            @{{ tag.name }}
+                                        </option>
                                     </select>
                                 </div>
 
@@ -84,6 +89,34 @@
         <!--end col-->
     </div>
     <!--end row-->
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm thẻ nhanh</h4>
+                    <button type="button" class="btn-close btn-dong" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <input type="text" ng-model="name" class="form-control" name="name">
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" ng-click="addTag()" class="btn btn-primary">Thêm</button>
+                </form>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -91,5 +124,44 @@
     <script src="https://cdn.ckeditor.com/4.8.0/full-all/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'noi_dung' );
+    </script>
+
+
+    <script>
+        viewFunction = ($scope, $http)=>{
+            $scope.name = ''
+            $scope.tags = []
+            $scope.getTags = ()=> {
+                $http.get("{{route('admin.api.tag')}}")
+                    .then(function(response) {
+                    $scope.tags = response.data.data
+                        console.log($scope.tags)
+                });
+            }
+            $scope.getTags()
+            $scope.addTag = ()=> {
+                $http.post("{{route('admin.tags.store')}}", {
+                    name: $scope.name
+                }).then(function(response) {
+                    Swal.fire({
+                        title: "Tốt!",
+                        text: "Bạn vừa thêm thẻ thành công!",
+                        icon: "success"
+                    });
+                    document.querySelector('.btn-dong').click()
+                    $scope.getTags()
+                    $scope.name = ''
+                })
+                    .catch(function (error) {
+                        Swal.fire({
+                            title: "Lỗi",
+                            text: "Thẻ đã tồn tại",
+                            icon: "error"
+                        });
+                        $scope.name = ''
+                    });
+            }
+
+        }
     </script>
 @endsection

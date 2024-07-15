@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title',$tag->name)
+@section('title',$dataCatelogue->name)
 @section('content')
     <section class="section">
         <div class="py-4"></div>
@@ -7,9 +7,9 @@
             <div class="row">
                 <div
                     class="col-lg-8  mb-5 mb-lg-0">
-                    <h1 class="h2 mb-4">Hiển thị các thẻ từ
-                        <mark>{{$tag->name}}</mark></h1>
-                    @foreach($dataArticleTag as $item)
+                    <h1 class="h2 mb-4">Hiển thị danh mục từ
+                        <mark>{{$dataCatelogue->name}}</mark></h1>
+                    @foreach($dataArticle as $item)
                         <article class="card mb-4">
                             <div class="post-slider">
                                 <img src="{{\Storage::url($item->image)}}" class="card-img-top" alt="post-thumb">
@@ -28,7 +28,7 @@
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <i class="ti-timer"></i>2 Min To Read
+                                        <i class="ti-timer"></i>{{$item->views}} lượt xem
                                     </li>
                                     <li class="list-inline-item">
                                         <i class="ti-calendar"></i>{{$item->created_at->format('d-m-Y')}}
@@ -36,13 +36,13 @@
                                     <li class="list-inline-item">
                                         <ul class="card-meta-tag list-inline">
                                             @foreach($item->tags as $tag)
-                                                <li class="list-inline-item"><a href="tags.html">{{$tag->name}}</a></li>
+                                                <li class="list-inline-item"><a href="{{route('tag', ['id' => $tag->id, 'slug' => $tag->slug])}}">{{$tag->name}}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
                                 </ul>
                                 <p>{!! \Str::limit($item->content,100) !!}...</p>
-                                <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                                <a href="{{route('detail',$item->slug)}}" class="btn btn-outline-primary">Read More</a>
                             </div>
                         </article>
 

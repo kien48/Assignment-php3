@@ -1,12 +1,12 @@
 @extends('layouts.master')
-
+@section('title','Trang chủ')
 @section('content')
     <!-- start of banner -->
     <div class="banner text-center">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 mx-auto">
-                    <h1 class="mb-5">Bạn sẽ ăn gì <br> Trong hôm nay?</h1>
+                    <h1 class="mb-5">Có chủ đề nào hot <br> Trong hôm nay?</h1>
                     <ul class="list-inline widget-list-inline">
                         @foreach($tags as $tag)
                             <li class="list-inline-item">
@@ -72,22 +72,27 @@
                     <h2 class="h5 section-title">BIÊN TẬP CHỌN</h2>
                     <article class="card">
                         <div class="post-slider slider-sm">
-                            <img src="{{\Storage::url($articlesEditor->image)}}" class="card-img-top" alt="post-thumb">
+                            <img src="{{\Storage::url($articlesEditor->image)}}" class="card-img-top"
+                                 alt="post-thumb" style="height: 190px">
                         </div>
 
                         <div class="card-body">
-                            <h3 class="h4 mb-3"><a class="post-title" href="post-details.html">
+                            <h3 class="h4 mb-3"><a class="post-title" href="{{route('detail', $articlesEditor->slug)}}">
                                     {{$articlesEditor->title}}
                                 </a></h3>
                             <ul class="card-meta list-inline">
                                 <li class="list-inline-item">
-                                    <a href="author-single.html" class="card-meta-author">
-                                        <img src="{{asset('/')}}/themes/reader/images/john-doe.jpg">
+                                    <a href="{{route('author.detail', $articlesEditor->author->id)}}" class="card-meta-author">
+                                        @if(!$articlesEditor->author->avatar)
+                                            <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
+                                        @else
+                                            <img  src="{{\Storage::url($articlesEditor->author->avatar)}}">
+                                        @endif
                                         <span>{{$articlesEditor->author->name}}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <i class="ti-timer"></i>2 Min To Read
+                                    <i class="ti-timer"></i>{{$articlesEditor->views}} lượt xem
                                 </li>
                                 <li class="list-inline-item">
                                     <i class="ti-calendar"></i>{{$articlesEditor->created_at->format('d-m-Y')}}
@@ -95,13 +100,13 @@
                                 <li class="list-inline-item">
                                     <ul class="card-meta-tag list-inline">
                                         @foreach($articlesEditor->tags as $tag)
-                                            <li class="list-inline-item"><a href="tags.html">{{$tag->name}}</a></li>
+                                            <li class="list-inline-item"><a href="{{route('tag', ['id' => $tag->id, 'slug' => $tag->slug])}}">{{$tag->name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
                             </ul>
                             <p>{!! \Str::limit($articlesEditor->content, 100, '...') !!}</p>
-                            <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                            <a href="{{route('detail', $articlesEditor->slug)}}" class="btn btn-outline-primary">Đọc thêm</a>
                         </div>
                     </article>
                 </div>
@@ -119,7 +124,7 @@
                                             <i class="ti-calendar"></i>{{$item->created_at->format('d-m-Y')}}
                                         </li>
                                         <li class="list-inline-item mb-0">
-                                            <i class="ti-timer"></i>2 Min To Read
+                                            <i class="ti-timer"></i>{{$item->views}} lượt xem
                                         </li>
                                     </ul>
                                 </div>
@@ -134,22 +139,28 @@
 
                     <article class="card">
                         <div class="post-slider slider-sm">
-                            <img src="{{\Storage::url($articlesViews->image)}}" class="card-img-top" alt="post-thumb">
+                            <img src="{{\Storage::url($articlesViews->image)}}" class="card-img-top"
+                                 style="height: 190px"
+                                 alt="post-thumb">
                         </div>
 
                         <div class="card-body">
-                            <h3 class="h4 mb-3"><a class="post-title" href="post-details.html">
+                            <h3 class="h4 mb-3"><a class="post-title" href="{{route('detail', $articlesViews->slug)}}">
                                     {{$articlesViews->title}}
                                 </a></h3>
                             <ul class="card-meta list-inline">
                                 <li class="list-inline-item">
-                                    <a href="author-single.html" class="card-meta-author">
-                                        <img src="{{asset('/')}}/themes/reader/images/john-doe.jpg">
+                                    <a href="{{route('author.detail', $articlesViews->author->id)}}" class="card-meta-author">
+                                        @if(!$articlesViews->author->avatar)
+                                            <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
+                                        @else
+                                            <img src="{{\Storage::url($articlesViews->author->avatar)}}">
+                                        @endif
                                         <span>{{$articlesViews->author->name}}</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <i class="ti-timer"></i>2 Min To Read
+                                    <i class="ti-timer"></i>{{$articlesViews->views}} lượt xem
                                 </li>
                                 <li class="list-inline-item">
                                     <i class="ti-calendar"></i>{{$articlesViews->created_at->format('d-m-Y')}}
@@ -157,13 +168,13 @@
                                 <li class="list-inline-item">
                                     <ul class="card-meta-tag list-inline">
                                         @foreach($articlesViews->tags as $tag)
-                                            <li class="list-inline-item"><a href="tags.html">{{$tag->name}}</a></li>
+                                            <li class="list-inline-item"><a href="{{route('tag', ['id' => $tag->id, 'slug' => $tag->slug])}}">{{$tag->name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
                             </ul>
                             <p>{!! \Str::limit($articlesViews->content, 100, '...') !!}</p>
-                            <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                            <a href="{{route('detail', $articlesViews->slug)}}" class="btn btn-outline-primary">Đọc thêm</a>
                         </div>
                     </article>
                 </div>
@@ -184,21 +195,26 @@
                     @foreach($articlesNews as $item)
                         <article class="card mb-4">
                             <div class="post-slider">
-                                <img src="{{\Storage::url($item->image)}}" class="card-img-top" alt="post-thumb">
+                                <img src="{{\Storage::url($item->image)}}" class="card-img-top"
+                                     alt="post-thumb">
                             </div>
                             <div class="card-body">
-                                <h3 class="mb-3"><a class="post-title" href="post-details.html">
+                                <h3 class="mb-3"><a class="post-title" href="{{route('detail',$item->slug)}}">
                                         {{$item->title}}
                                     </a></h3>
                                 <ul class="card-meta list-inline">
                                     <li class="list-inline-item">
-                                        <a href="author-single.html" class="card-meta-author">
-                                            <img src="images/john-doe.jpg">
+                                        <a href="{{route('author.detail', $item->author->id)}}" class="card-meta-author">
+                                            @if(!$item->author->avatar)
+                                                <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
+                                            @else
+                                                <img src="{{\Storage::url($item->author->avatar)}}">
+                                            @endif
                                             <span>{{$item->author->name}}</span>
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <i class="ti-timer"></i>2 Min To Read
+                                        <i class="ti-timer"></i>{{$item->views}} lượt xem
                                     </li>
                                     <li class="list-inline-item">
                                         <i class="ti-calendar"></i>{{$item->created_at->format('d-m-Y')}}
@@ -206,13 +222,13 @@
                                     <li class="list-inline-item">
                                         <ul class="card-meta-tag list-inline">
                                             @foreach($item->tags as $tag)
-                                                <li class="list-inline-item"><a href="tags.html">{{$tag->name}}</a></li>
+                                                <li class="list-inline-item"><a href="{{route('tag', ['id' => $tag->id, 'slug' => $tag->slug])}}">{{$tag->name}}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
                                 </ul>
                                 <p>{!! \Str::limit($item->content, 100, '...') !!}</p>
-                                <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                                <a href="{{route('detail',$item->slug)}}" class="btn btn-outline-primary">Đọc thêm</a>
                             </div>
                         </article>
 
