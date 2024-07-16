@@ -18,102 +18,35 @@
     <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
     @include('layouts.partials.css')
 </head>
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
 <!-- navigation -->
 <header class="navigation fixed-top">
     @include('layouts.partials.head')
 </header>
 <!-- /navigation -->
 
-@yield('content')
+<div ng-controller="viewCtrl">
+    @yield('content')
+</div>
 
 <footer class="footer">
     @include('layouts.partials.footer')
 </footer>
-<!-- The Modal -->
-<div class="modal" id="myModalDangKy">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Đăng ký</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="">
-                    <div class="form-group">
-                        <label for="name">Tên tài khoản:</label>
-                        <input type="text" class="form-control" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Mật khẩu:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Nhập lại mật khẩu:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Đăng ký</button>
-
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="modal" id="myModalDangNhap">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Đăng nhập</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form action="">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Mật khẩu:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox"> Nhớ tôi
-                        </label>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+@include('layouts.partials.modal')
 
 <!-- JS Plugins -->
 @include('layouts.partials.js')
-
+<script>
+    let myApp = angular.module('myApp', []);
+    myApp.controller('myCtrl', function($scope) {
+    });
+    function viewFunction($scope, $http) {
+    }
+</script>
+@yield('js')
+<script>
+    myApp.controller('viewCtrl', viewFunction);
+</script>
 </body>
 </html>

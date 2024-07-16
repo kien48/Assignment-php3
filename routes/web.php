@@ -19,15 +19,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('detail/{slug}',[App\Http\Controllers\ArticleController::class,'detail'])->name('detail');
-Route::get('tag/{id}/{slug}',[App\Http\Controllers\TagController::class,'tag'])->name('tag');
-Route::get('/authors',[App\Http\Controllers\AuthorController::class,'index'])->name('authors');
-Route::get('/author/{id}',[App\Http\Controllers\AuthorController::class,'detail'])->name('author.detail');
+Route::get('chi-tiet/{slug}',[App\Http\Controllers\ArticleController::class,'detail'])->name('detail');
+Route::patch('/tang-view',[App\Http\Controllers\ArticleController::class,'views'])->name('views');
 
-Route::get('/contact',[App\Http\Controllers\ContactController::class,'index'])->name('contact');
+Route::get('tag/{id}/{slug}',[App\Http\Controllers\TagController::class,'tag'])->name('tag');
+Route::get('/tac-gia',[App\Http\Controllers\AuthorController::class,'index'])->name('authors');
+Route::get('/tac-gia/{id}',[App\Http\Controllers\AuthorController::class,'detail'])->name('author.detail');
+
+Route::get('/lien-he',[App\Http\Controllers\ContactController::class,'index'])->name('contact');
 Route::view('/thong-tin-ve-toi', 'about-me')->name('about');
-Route::get('catelogue/{slug}',[App\Http\Controllers\CatelogueController::class,'index'])->name('catelogue');
-Route::get('/search', [App\Http\Controllers\ArticleController::class,'search'])->name('articles.search');
+Route::get('danh-muc/{slug}',[App\Http\Controllers\CatelogueController::class,'index'])->name('catelogue');
+Route::get('/tim-kiem', [App\Http\Controllers\ArticleController::class,'search'])->name('articles.search');
 
 
 Route::prefix('/admin')->group(function (){

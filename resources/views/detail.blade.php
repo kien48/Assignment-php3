@@ -53,10 +53,12 @@
                             <div class="media-body">
                                 <a href="#!" class="h4 d-inline-block mb-3">Alexender Grahambel</a>
 
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                                <p>Ngày mai nên rảnh rỗi, không có thai. Không cần phải lo lắng về sô cô la trước đây.
+                                    Ngày mai hận thù thuần khiết, tiền đình trong vulputate, tempus viverra turpis.
+                                    Bây giờ trộn nước sốt và nếu không thì sẽ vulputate friingilla. Cho đến khi bài tập về nhà của lacinia kích hoạt trong cổ họng.</p>
 
                                 <span class="text-black-800 mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-                                <a class="text-primary font-weight-600" href="#!">Reply</a>
+                                <a class="text-primary font-weight-600" href="#!">Phản hồi</a>
                             </div>
                         </div>
                         <div class="media d-block d-sm-flex">
@@ -67,33 +69,25 @@
                             <div class="media-body">
                                 <a href="#!" class="h4 d-inline-block mb-3">Nadia Sultana Tisa</a>
 
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                                <p>Ngày mai nên rảnh rỗi, không có thai. Không cần phải lo lắng về sô cô la trước đây.
+                                    Ngày mai hận thù thuần khiết, tiền đình trong vulputate, tempus viverra turpis.
+                                    Bây giờ trộn nước sốt và nếu không thì sẽ vulputate friingilla. Cho đến khi bài tập về nhà của lacinia kích hoạt trong cổ họng.</p>
 
                                 <span class="text-black-800 mr-3 font-weight-600">April 18, 2020 at 6.25 pm</span>
-                                <a class="text-primary font-weight-600" href="#!">Reply</a>
+                                <a class="text-primary font-weight-600" href="#!">Phản hồi</a>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="mb-4">Leave a Reply</h3>
+                        <h3 class="mb-4">Để lại phản hồi</h3>
                         <form method="POST">
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <textarea class="form-control shadow-none" name="comment" rows="7" required></textarea>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <input class="form-control shadow-none" type="text" placeholder="Name" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input class="form-control shadow-none" type="email" placeholder="Email" required>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input class="form-control shadow-none" type="url" placeholder="Website">
-                                    <p class="font-weight-bold valid-feedback">OK! You can skip this field.</p>
-                                </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Comment Now</button>
+                            <button class="btn btn-primary" type="submit">Gửi bình luận</button>
                         </form>
                     </div>
                 </div>
@@ -102,4 +96,26 @@
         </div>
     </section>
 
+@endsection
+
+@section('js')
+    <script>
+        viewFunction = ($scope, $http)=>{
+            $scope.tangView = ()=>{
+                $http.patch('{{route('views')}}',{
+                    id : {{$model->id}}
+                }).then(res=>{
+                    console.log('thêm thành công')
+                })
+            }
+            let minThoiGianDoc = 60;
+            let demNguoc = setInterval(()=>{
+                minThoiGianDoc--;
+                if(minThoiGianDoc <= 0){
+                    clearInterval(demNguoc)
+                    $scope.tangView()
+                }
+            },1000)
+        }
+    </script>
 @endsection

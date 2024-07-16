@@ -27,4 +27,8 @@ class ArticleController extends Controller
 
         return view('search', compact('articles', 'query'));
     }
+    public function views(Request $request)
+    {
+        Article::query()->where('id',$request->id)->increment('views',1);
+    }
 }

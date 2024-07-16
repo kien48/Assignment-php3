@@ -28,7 +28,7 @@
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <i class="ti-timer"></i>2 Min To Read
+                                        <i class="ti-timer"></i>{{$item->views}} lượt xem
                                     </li>
                                     <li class="list-inline-item">
                                         <i class="ti-calendar"></i>{{$item->created_at->format('d-m-Y')}}
@@ -36,13 +36,13 @@
                                     <li class="list-inline-item">
                                         <ul class="card-meta-tag list-inline">
                                             @foreach($item->tags as $tag)
-                                                <li class="list-inline-item"><a href="tags.html">{{$tag->name}}</a></li>
+                                                <li class="list-inline-item"><a href="{{route('tag',['id'=>$tag->id,'slug'=>$tag->slug])}}">{{$tag->name}}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
                                 </ul>
                                 <p>{!! \Str::limit($item->content,100) !!}...</p>
-                                <a href="post-details.html" class="btn btn-outline-primary">Read More</a>
+                                <a href="{{route('detail',$item->slug)}}" class="btn btn-outline-primary">Đọc thêm</a>
                             </div>
                         </article>
 
