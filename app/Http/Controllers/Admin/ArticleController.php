@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Catelogue;
+use App\Models\Notification;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    const PATH_VIEW = 'admin.articles.';
+    const PATH_VIEW = 'admins.articles.';
     public function index()
     {
         $data = Article::query()->with(['tags','catelogue','author','editor'])->orderByDesc('id')->get();
@@ -39,7 +40,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $dataArticle = $request->except('tag_id','image');
-        $dataArticle['author_id'] = session('admin')->id;
+        $dataArticle['author_id'] = session('admins')->id;
         $dataArticle['slug'] = Str::slug($dataArticle['title']);
         try {
             DB::beginTransaction();
@@ -49,7 +50,7 @@ class ArticleController extends Controller
             $article = Article::query()->create($dataArticle);
             $article->tags()->sync($request->tag_id);
             DB::commit();
-            return redirect()->route('admin.article.index');
+            return redirect()->route('admins.article.index');
         }catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage());
@@ -68,15 +69,31 @@ class ArticleController extends Controller
 
     public function browse(Request $request, string $id)
     {
-        $data = $request->except('_method', '_token');
-        $data['is_editor'] = $data['is_editor'] ?? 0;
-        $data['is_trending'] = $data['is_trending'] ?? 0;
-        $data['editor_id'] = session('admin')->id;
-        $check = Article::query()->where('id', $id)->update($data);
-        if ($check) {
-            return redirect()->route('admin.articles.index')->with('success', 'Duyệt thành công');
+        try {
+            DB::beginTransaction();
+            $data = $request->except('_method', '_token');
+            $data['is_editor'] = $data['is_editor'] ?? 0;
+            $data['is_trending'] = $data['is_trending'] ?? 0;
+            $data['editor_id'] = session('admins')->id;
+            Article::query()->where('id', $id)->update($data);
+
+            if($request->status == 'published'){
+                Notification::query()->create([
+                    'user_id' => $data['author_id'],
+                    'content' => "Bài viết $request->title đã được duyệt",
+                ]);
+            }else{
+                Notification::query()->create([
+                    'user_id' => $data['author_id'],
+                    'content' => "Bài viết $request->title đã bị ẩn do vi phạm nội dung",
+                ]);
+            }
+            DB::commit();
+            return redirect()->route('admins.articles.index')->with('success', 'Duyệt thành công');
+        }catch (\Exception $exception) {
+            DB::rollBack();
+            return back()->with('error', 'Duyệt thất bại');
         }
-        return back()->with('error', 'Duyệt thất bại');
     }
 
     /**

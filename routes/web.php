@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CatelogueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\HomeController;
@@ -38,17 +39,25 @@ Route::prefix('/admin')->group(function (){
         Route::post('/login', [AuthController::class, 'login'])->name('login');
         Route::middleware('check.admin')->group(function (){
             Route::get('/', [DashboardController::class, 'index'])->name('home');
-
             Route::put('articles/browse/{id}', [ArticleController::class, 'browse'])->name('articles.browse');
             Route::resource('articles', ArticleController::class);
             Route::resource('tags', TagController::class);
+            Route::resource('catelogues', CatelogueController::class);
 
             Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+            Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+            Route::as('profile.')->group(function (){
+                Route::get('/profile/edit', [AuthController::class, 'edit'])->name('edit');
+                Route::put('/profile/edit/{id}', [AuthController::class, 'update'])->name('update');
+            });
+            Route::patch('/da-xem', [DashboardController::class, 'read'])->name('read');
 
         });
 
         Route::as('api.')->group(function () {
-            Route::get('/tags', [TagController::class, 'apiGetTags'])->name('tag');
+            Route::get('/tag', [TagController::class, 'apiGetTags'])->name('tag');
+            Route::get('/dem-so-tin', [DashboardController::class, 'apiCountNotification'])->name('apiCountNotification');
+
         });
     });
 });

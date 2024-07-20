@@ -17,6 +17,36 @@
     <meta property="og:url" content="" />
     <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
     @include('layouts.partials.css')
+    <style>
+        .btn-custom-sm {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            line-height: 1.2;
+            height: 37px;
+            border-radius: 0.2rem;
+            width: 104px;
+        }
+
+        .btn-custom-sm i {
+            font-size: 0.8rem;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 2px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <!-- navigation -->

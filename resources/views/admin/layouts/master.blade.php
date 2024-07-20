@@ -69,18 +69,7 @@
         <!-- End Page-content -->
 
         <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <script>document.write(new Date().getFullYear())</script> © Velzon.
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end d-none d-sm-block">
-                            Design & Develop by Themesbrand
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('admin.layouts.footer')
         </footer>
     </div>
     <!-- end main content-->
@@ -854,7 +843,28 @@
 <script>
     var myApp = angular.module('myApp', []);
     myApp.controller('myCtrl', function($scope, $http) {
-
+       $scope.demTin = 0;
+       $scope.danhSachTin = []
+       $scope.getTin = ()=>{
+           $http.get('{{route('admins.api.apiCountNotification')}}')
+               .then(res=>{
+                   $scope.demTin = res.data.count
+                   $scope.danhSachTin = res.data.data
+                   console.log($scope.danhSachTin)
+               })
+               .catch(err=>console.error(err));
+       }
+        $scope.getTin()
+        $scope.daXem = (id)=>{
+            $http.patch('{{route('admins.read')}}',{
+                id: id
+            })
+                .then(res=>{
+                    $scope.getTin()
+                })
+                .catch(err=>console.error(err));
+        }
+        $scope.daXem()
     })
     var viewFunction = ($scope, $http) => {
 

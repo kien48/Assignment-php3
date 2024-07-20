@@ -1,7 +1,5 @@
 @extends('admin.layouts.master')
 
-
-
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css"/>
     <!--datatable responsive css-->
@@ -42,7 +40,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Danh sách bài viết</h5>
+                    <h5 class="card-title mb-0">Danh sách danh mục</h5>
                 </div>
                 <div class="card-body">
                     <table id="example"
@@ -50,51 +48,25 @@
                            style="width:100%">
                         <thead>
                         <th>ID</th>
-                        <th>Tiêu đề</th>
-                        <th>Danh mục</th>
+                        <th>Tên</th>
                         <th>Ảnh</th>
-                        <th>Lượt xem</th>
-                        <th>Tác giả</th>
-                        <th>Người duyệt</th>
-                        <th>Trạng thái</th>
-                        <th>Thời gian tạo</th>
-                        <th>Thời gian cập nhật</th>
                         <th>Thao tác</th>
                         </thead>
                         <tbody>
                         @foreach($data as $item)
-                            @php
-                            if($item->editor){
-                                $editor = $item->editor->name;
-                            }else{
-                                $editor = "Chưa có";
-                            }
-                            @endphp
-                           <tr>
-                               <td>{{$item->id}}</td>
-                               <td>{{$item->title}}</td>
-                               <td>{{$item->catelogue->name}}</td>
-                               <td>
-                                   <img src="{{\Storage::url($item->image)}}" alt="" height="100px" class="img-thumbnail">
-                               </td>
-                               <td>{{$item->views}}</td>
-                               <td>{{$item->author->name}}</td>
-                               <td>{{$editor}}</td>
-                               <td>{{$item->status}}</td>
-                               <td>{{$item->created_at}}</td>
-                               <td>{{$item->updated_at}}</td>
-                               <td>
-                                   @if(session('admins')->role == "editor")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Duyệt qua</a>
-                                   @elseif(session('admins')->role == "author")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
-                                       <a href="{{route('admins.articles.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                       <a href="{{route('admins.articles.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
-                                   @elseif(session('admins')->role == "admins")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
-                                   @endif
-                               </td>
-                           </tr>
+                            <tr>
+                                <td>{{$item->id}}</td>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                    <img src="{{\Storage::url($item->image)}}" alt="" style="height: 50px" class="img-thumbnail">
+                                </td>
+                                <td>{{$item->created_at}}</td>
+                                <td>{{$item->updated_at}}</td>
+                                <td>
+                                        <a href="{{route('admins.catelogues.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                                        <a href="{{route('admins.catelogues.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
@@ -127,3 +99,4 @@
     <!-- App js -->
     <script src="{{asset('/themes/velzon/')}}/assets/js/app.js"></script>
 @endsection
+

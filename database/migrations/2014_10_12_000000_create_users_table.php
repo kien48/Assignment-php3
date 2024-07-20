@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('job')->nullable();
             $table->string('sayings')->nullable();
-            $table->enum('role', ['admin', 'editor', 'author', 'member']);
+            $table->enum('role', ['admins', 'editor', 'author', 'member']);
             $table->rememberToken();
             $table->timestamps();
         });

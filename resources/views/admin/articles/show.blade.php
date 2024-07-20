@@ -25,7 +25,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{ route('admin.articles.browse', $model->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admins.articles.browse', $model->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="row gy-4">
@@ -71,18 +71,20 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                @if(session('admin')->role == 'editor')
+                                @if(session('admins')->role == 'editor')
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label for="tags" class="form-label">Trạng thái: </label>
                                             <select class="form-select" name="status">
-                                                <option value="pending" {{ $model->status == 'pending' ? 'selected' : '' }}>Đợi duyệt</option>
+                                                <option disabled value="pending" {{ $model->status == 'pending' ? 'selected' : '' }}>Đợi duyệt</option>
                                                 <option value="published" {{ $model->status == 'published' ? 'selected' : '' }}>Đã duyệt</option>
                                                 <option value="hidden" {{ $model->status == 'hidden' ? 'selected' : '' }}>Ẩn</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <div class="form-check form-switch form-switch-danger">
+                                                <input name="author_id" type="hidden" class="form-check-input" value="{{$model->author_id}}">
+                                                <input name="title" type="hidden" class="form-check-input" value="{{$model->title}}">
                                                 <input name="is_editor" class="form-check-input" value="1" type="checkbox" role="switch" id="SwitchCheck5" @if($model->is_editor) checked @endif>
                                                 <label class="form-check-label" for="SwitchCheck5">Biên tập chọn</label>
                                             </div>
@@ -95,9 +97,9 @@
                                     </div>
                                 @endif
                                 <div class="col-12">
-                                    <a href="{{ route('admin.articles.index') }}" class="btn btn-secondary">Quay lại</a>
+                                    <a href="{{ route('admins.articles.index') }}" class="btn btn-secondary">Quay lại</a>
 
-                                    @if(session('admin')->role == 'editor')
+                                    @if(session('admins')->role == 'editor')
                                         <button type="submit" class="btn btn-warning">Duyệt</button>
                                     @endif
                                 </div>

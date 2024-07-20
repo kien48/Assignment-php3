@@ -42,14 +42,10 @@
             <form class="search-bar" action="{{route('articles.search')}}" method="get">
                 <input id="search-query" name="query" type="search" placeholder="Bạn muốn tìm gì">
             </form>
-
-            <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse" data-target="#navigation">
-                <i class="ti-menu"></i>
-            </button>
-            <button type="button" class="btn btn-outline-primary  btn-sm " data-toggle="modal" data-target="#myModalDangKy">
+            <button type="button" class="btn btn-outline-primary btn-custom-sm" data-toggle="modal" data-target="#myModalDangKy">
                 <i class="ti-user"></i> Đăng ký
             </button>
-            <button type="button" class="btn btn-outline-danger  btn-sm " data-toggle="modal" data-target="#myModalDangNhap">
+            <button type="button" class="btn btn-outline-danger btn-custom-sm" data-toggle="modal" data-target="#myModalDangNhap">
                 <i class="ti-user"></i> Đăng nhập
             </button>
         </div>
