@@ -32,7 +32,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('admins.home')}}">
+                    <a class="nav-link menu-link" href="{{route('admin.home')}}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
@@ -44,16 +44,16 @@
                     <div class="collapse menu-dropdown" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('admins.articles.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
+                                <a href="{{route('admin.articles.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
                             </li>
-                            @if(session('admins')->role == 'author')
+                            @if(session('admin')->role == 'author')
                                 <li class="nav-item">
-                                    <a href="{{route('admins.articles.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
+                                    <a href="{{route('admin.articles.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
-                                @elseif(session('admins')->role == 'admins')
+                                @elseif(session('admin')->role == 'admin')
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
@@ -68,16 +68,16 @@
                     <div class="collapse menu-dropdown" id="sidebarCatelogues">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('admins.catelogues.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
+                                <a href="{{route('admin.catelogues.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
                             </li>
-                            @if(session('admins')->role == 'editor')
+                            @if(session('admin')->role == 'editor')
                                 <li class="nav-item">
-                                    <a href="{{route('admins.catelogues.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
+                                    <a href="{{route('admin.catelogues.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
-                            @elseif(session('admins')->role == 'admins')
+                            @elseif(session('admin')->role == 'admin')
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
@@ -92,16 +92,16 @@
                     <div class="collapse menu-dropdown" id="sidebarTag">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('admins.tags.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
+                                <a href="{{route('admin.tags.index')}}"  class="nav-link" data-key="t-horizontal">Danh sách</a>
                             </li>
-                            @if(session('admins')->role == 'editor')
+                            @if(session('admin')->role == 'editor')
                                 <li class="nav-item">
-                                    <a href="{{route('admins.tags.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
+                                    <a href="{{route('admin.tags.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
-                            @elseif(session('admins')->role == 'admins')
+                            @elseif(session('admin')->role == 'admin')
                                 <li class="nav-item">
                                     <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
@@ -121,11 +121,11 @@
                                 <div class="collapse menu-dropdown" id="sidebarAdmin">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="auth-signin-basic.html" class="nav-link" data-key="t-basic"> Danh sách
+                                            <a href="{{route('admin.users.admins.index')}}" class="nav-link" data-key="t-basic"> Danh sách
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="auth-signin-cover.html" class="nav-link" data-key="t-cover"> Thêm mới
+                                            <a href="{{route('admin.users.admins.create')}}" class="nav-link" data-key="t-cover"> Thêm mới
                                             </a>
                                         </li>
                                     </ul>
@@ -137,11 +137,11 @@
                                 <div class="collapse menu-dropdown" id="sidebarEditor">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="auth-signup-basic.html" class="nav-link" data-key="t-basic"> Danh sách
+                                            <a href="{{route('admin.users.editors.index')}}" class="nav-link" data-key="t-basic"> Danh sách
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="auth-signup-cover.html" class="nav-link" data-key="t-cover"> Thêm mới
+                                            <a href="{{route('admin.users.editors.create')}}" class="nav-link" data-key="t-cover"> Thêm mới
                                             </a>
                                         </li>
                                     </ul>
@@ -155,11 +155,11 @@
                                 <div class="collapse menu-dropdown" id="sidebarAuthor">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="auth-pass-reset-basic.html" class="nav-link" data-key="t-basic">
+                                            <a href="{{route('admin.users.authors.index')}}" class="nav-link" data-key="t-basic">
                                                 Danh sách </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="auth-pass-reset-cover.html" class="nav-link" data-key="t-cover">
+                                            <a href="{{route('admin.users.authors.create')}}" class="nav-link" data-key="t-cover">
                                                 Thêm mới </a>
                                         </li>
                                     </ul>

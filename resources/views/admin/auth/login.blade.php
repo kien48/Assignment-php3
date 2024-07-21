@@ -65,7 +65,7 @@
                                 <p class="text-muted">Tiếp tục đăng nhập trang quản trị.</p>
                             </div>
                             <div class="p-2 mt-4">
-                                <form action="{{route('admins.login')}}" method="post">
+                                <form action="{{route('admin.login')}}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Email</label>

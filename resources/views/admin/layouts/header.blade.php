@@ -133,22 +133,22 @@
             <div class="dropdown ms-sm-3 header-item topbar-user">
                 <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                             @if(!session('admins')->avatar)
+                             @if(!session('admin')->avatar)
                                 <img class="rounded-circle header-profile-user"  src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
                             @else
-                                <img class="rounded-circle header-profile-user"  src="{{\Storage::url(session('admins')->avatar)}}">
+                                <img class="rounded-circle header-profile-user"  src="{{\Storage::url(session('admin')->avatar)}}">
                             @endif
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{session('admins')->name}}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{session('admins')->role}}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{session('admin')->name}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{session('admin')->role}}</span>
                             </span>
                         </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <h6 class="dropdown-header">Chào mừng {{session('admins')->name}}!</h6>
-                    <a class="dropdown-item" href="{{route('admins.profile')}}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Thông tin cá nhân</span></a>
-                    <a class="dropdown-item" href="{{route('admins.logout')}}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Đăng xuất</span></a>
+                    <h6 class="dropdown-header">Chào mừng {{session('admin')->name}}!</h6>
+                    <a class="dropdown-item" href="{{route('admin.profile')}}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Thông tin cá nhân</span></a>
+                    <a class="dropdown-item" href="{{route('admin.logout')}}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Đăng xuất</span></a>
                 </div>
             </div>
         </div>

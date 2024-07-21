@@ -31,7 +31,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('admins.articles.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.articles.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                                 <div class="col-xxl-6 col-md-6">
@@ -131,7 +131,7 @@
             $scope.name = ''
             $scope.tags = []
             $scope.getTags = ()=> {
-                $http.get("{{route('admins.api.tag')}}")
+                $http.get("{{route('admin.api.tag')}}")
                     .then(function(response) {
                     $scope.tags = response.data.data
                         console.log($scope.tags)
@@ -139,7 +139,7 @@
             }
             $scope.getTags()
             $scope.addTag = ()=> {
-                $http.post("{{route('admins.tags.store')}}", {
+                $http.post("{{route('admin.tags.store')}}", {
                     name: $scope.name
                 }).then(function(response) {
                     Swal.fire({

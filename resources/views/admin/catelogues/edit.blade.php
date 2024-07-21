@@ -31,7 +31,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('admins.catelogues.update',$model->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.catelogues.update',$model->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="row gy-4">

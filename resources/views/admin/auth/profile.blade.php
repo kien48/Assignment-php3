@@ -12,21 +12,21 @@
         <div class="row g-4">
             <div class="col-auto">
                 <div class="avatar-lg">
-                    @if(!session('admins')->avatar)
+                    @if(!session('admin')->avatar)
                         <img class="img-thumbnail rounded-circle"  src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
                     @else
-                        <img class="img-thumbnail rounded-circle"  src="{{\Storage::url(session('admins')->avatar)}}">
+                        <img class="img-thumbnail rounded-circle"  src="{{\Storage::url(session('admin')->avatar)}}">
                     @endif
                 </div>
             </div>
             <!--end col-->
             <div class="col">
                 <div class="p-2">
-                    <h3 class="text-white mb-1">{{session('admins')->name}}</h3>
-                    <p class="text-white text-opacity-75">{{session('admins')->role}}</p>
+                    <h3 class="text-white mb-1">{{session('admin')->name}}</h3>
+                    <p class="text-white text-opacity-75">{{session('admin')->role}}</p>
                     <div class="hstack text-white-50 gap-1">
                         <div>
-                            <i class="ri-building-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>{{session('admins')->job}}
+                            <i class="ri-building-line me-1 text-white text-opacity-75 fs-16 align-middle"></i>{{session('admin')->job}}
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                     <div class="flex-shrink-0">
-                        <a href="{{route('admins.profile.edit')}}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Chỉnh sửa hồ sơ</a>
+                        <a href="{{route('admin.profile.edit')}}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Chỉnh sửa hồ sơ</a>
                     </div>
                 </div>
                 <!-- Tab panes -->
@@ -94,11 +94,11 @@
                                                 <tbody>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Họ và tên :</th>
-                                                    <td class="text-muted">{{session('admins')->name}}</td>
+                                                    <td class="text-muted">{{session('admin')->name}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">E-mail :</th>
-                                                    <td class="text-muted">{{session('admins')->email}}</td>
+                                                    <td class="text-muted">{{session('admin')->email}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -113,7 +113,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">Câu nói</h5>
-                                        <p>{{session('admins')->sayings}}</p>
+                                        <p>{{session('admin')->sayings}}</p>
                                         <!--end row-->
                                     </div>
                                     <!--end card-body-->

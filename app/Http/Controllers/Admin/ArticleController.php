@@ -17,7 +17,7 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    const PATH_VIEW = 'admins.articles.';
+    const PATH_VIEW = 'admin.articles.';
     public function index()
     {
         $data = Article::query()->with(['tags','catelogue','author','editor'])->orderByDesc('id')->get();
@@ -40,7 +40,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $dataArticle = $request->except('tag_id','image');
-        $dataArticle['author_id'] = session('admins')->id;
+        $dataArticle['author_id'] = session('admin')->id;
         $dataArticle['slug'] = Str::slug($dataArticle['title']);
         try {
             DB::beginTransaction();
@@ -50,7 +50,7 @@ class ArticleController extends Controller
             $article = Article::query()->create($dataArticle);
             $article->tags()->sync($request->tag_id);
             DB::commit();
-            return redirect()->route('admins.article.index');
+            return redirect()->route('admin.article.index');
         }catch (\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->with('error', $exception->getMessage());
@@ -74,7 +74,7 @@ class ArticleController extends Controller
             $data = $request->except('_method', '_token');
             $data['is_editor'] = $data['is_editor'] ?? 0;
             $data['is_trending'] = $data['is_trending'] ?? 0;
-            $data['editor_id'] = session('admins')->id;
+            $data['editor_id'] = session('admin')->id;
             Article::query()->where('id', $id)->update($data);
 
             if($request->status == 'published'){
@@ -89,7 +89,7 @@ class ArticleController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('admins.articles.index')->with('success', 'Duyệt thành công');
+            return redirect()->route('admin.articles.index')->with('success', 'Duyệt thành công');
         }catch (\Exception $exception) {
             DB::rollBack();
             return back()->with('error', 'Duyệt thất bại');

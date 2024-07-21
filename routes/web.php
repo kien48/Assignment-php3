@@ -37,13 +37,22 @@ Route::prefix('/admin')->group(function (){
     Route::as('admin.')->group(function () {
         Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->name('login');
-        Route::middleware('check.admin')->group(function (){
+        Route::middleware(['check.admin','check.active.admin'])->group(function (){
             Route::get('/', [DashboardController::class, 'index'])->name('home');
             Route::put('articles/browse/{id}', [ArticleController::class, 'browse'])->name('articles.browse');
             Route::resource('articles', ArticleController::class);
             Route::resource('tags', TagController::class);
             Route::resource('catelogues', CatelogueController::class);
-
+            Route::prefix('users')->as('users.')->group(function () {
+                Route::get('authors/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'lookUpAuthor'])->name('authors.lookUpAuthor');
+                Route::get('authors/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'unLockAuthor'])->name('authors.unLockAuthor');
+                Route::resource('authors', App\Http\Controllers\Admin\Auth\AuthorController::class);
+                Route::get('editors/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\EditorController::class, 'lookUpEditor'])->name('editors.lookUpEditor');
+                Route::get('editors/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\EditorController::class, 'unLockEditor'])->name('editors.unLockEditor');
+                Route::resource('editors', App\Http\Controllers\Admin\Auth\EditorController::class);
+                Route::resource('admins', App\Http\Controllers\Admin\Auth\AdminController::class);
+                Route::resource('members', App\Http\Controllers\Admin\Auth\MemberController::class);
+            });
             Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
             Route::as('profile.')->group(function (){

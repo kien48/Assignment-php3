@@ -42,7 +42,7 @@
                 @endif
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('admins.tags.update', $model->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.tags.update', $model->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row gy-4">

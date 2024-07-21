@@ -14,7 +14,7 @@ class CatelogueController extends Controller
      * Display a listing of the resource.
      */
 
-    const PATH_VIEW = 'admins.catelogues.';
+    const PATH_VIEW = 'admin.catelogues.';
     public function index()
     {
         $data = Catelogue::query()->orderByDesc('id')->get();
@@ -41,7 +41,7 @@ class CatelogueController extends Controller
         }
         $check = Catelogue::query()->create($data);
         if($check){
-            return redirect()->route('admins.catelogues.index')->with('success','Thêm danh mục thành công');
+            return redirect()->route('admin.catelogues.index')->with('success','Thêm danh mục thành công');
         }
         return back()->with('error','Thêm danh mục thất bại');
     }
@@ -72,7 +72,7 @@ class CatelogueController extends Controller
             Storage::delete($model->image);
         }
         if($check){
-            return redirect()->route('admins.catelogues.index')->with('success','Cập nhật danh mục thành công');
+            return redirect()->route('admin.catelogues.index')->with('success','Cập nhật danh mục thành công');
         }
         return back()->with('error','Cập nhật danh mục thất bại');
     }

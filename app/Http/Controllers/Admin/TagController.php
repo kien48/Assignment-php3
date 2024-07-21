@@ -14,7 +14,7 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      */
-    const PATH_VIEW = 'admins.tags.';
+    const PATH_VIEW = 'admin.tags.';
     public function index()
     {
         $data = Tag::query()->orderByDesc('id')->orderByDesc('id')->get();

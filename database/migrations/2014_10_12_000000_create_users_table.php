@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('job')->nullable();
             $table->string('sayings')->nullable();
             $table->enum('role', ['admins', 'editor', 'author', 'member']);
+            $table->boolean('is_active')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

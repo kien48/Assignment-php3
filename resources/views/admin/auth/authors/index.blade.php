@@ -52,7 +52,6 @@
                         <th>Email</th>
                         <th>Ảnh</th>
                         <th>Công việc</th>
-                        <th>Câu nói</th>
                         <th>Thời gian tạo</th>
                         <th>Thời gian cập nhật</th>
                         <th>Thao tác</th>
@@ -64,21 +63,16 @@
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>
-                                    <img src="{{\Storage::url($item->image)}}" alt="" height="100px" class="img-thumbnail">
+                                    <img src="{{\Storage::url($item->avatar)}}" alt="" style="height: 50px" class="img-thumbnail; rounded-pill">
                                 </td>
                                 <td>{{$item->job}}</td>
-                                <td>{{$item->sayings}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td>
-                                    @if(session('admins')->role == "editor")
-                                        <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Duyệt qua</a>
-                                    @elseif(session('admins')->role == "author")
-                                        <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
-                                        <a href="{{route('admins.articles.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                        <a href="{{route('admins.articles.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
-                                    @elseif(session('admins')->role == "admins")
-                                        <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
+                                    @if(session('admin')->role == "admin" && $item->is_active == 1)
+                                        <a href="{{route('admin.users.authors.unLockAuthor', $item->id)}}" class="btn btn-info btn-sm">Mở khóa</a>
+                                    @else
+                                        <a href="{{route('admin.users.authors.lookUpAuthor', $item->id)}}" class="btn btn-danger btn-sm">Khóa</a>
                                     @endif
                                 </td>
                             </tr>

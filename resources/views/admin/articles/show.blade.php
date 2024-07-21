@@ -25,7 +25,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{ route('admins.articles.browse', $model->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.articles.browse', $model->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="row gy-4">
@@ -71,7 +71,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                @if(session('admins')->role == 'editor')
+                                @if(session('admin')->role == 'editor')
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label for="tags" class="form-label">Trạng thái: </label>
@@ -97,9 +97,9 @@
                                     </div>
                                 @endif
                                 <div class="col-12">
-                                    <a href="{{ route('admins.articles.index') }}" class="btn btn-secondary">Quay lại</a>
+                                    <a href="{{ route('admin.articles.index') }}" class="btn btn-secondary">Quay lại</a>
 
-                                    @if(session('admins')->role == 'editor')
+                                    @if(session('admin')->role == 'editor')
                                         <button type="submit" class="btn btn-warning">Duyệt</button>
                                     @endif
                                 </div>

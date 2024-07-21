@@ -61,8 +61,8 @@
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td class="d-flex">
-                                    <a href="{{route('admins.tags.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                    <form action="{{route('admins.tags.destroy', $item->id)}}" method="post">
+                                    <a href="{{route('admin.tags.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                                    <form action="{{route('admin.tags.destroy', $item->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn ms-2 btn-danger btn-sm">Xóa</button>

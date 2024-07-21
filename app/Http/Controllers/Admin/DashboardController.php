@@ -10,15 +10,15 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admins.dashboard');
+        return view('admin.dashboard');
     }
 
     public function apiCountNotification()
     {
-       $data = Notification::query()->where('user_id', session('admins')->id)
+       $data = Notification::query()->where('user_id', session('admin')->id)
            ->where('status',0)
            ->count();
-       $dataContent = Notification::query()->where('user_id', session('admins')->id)
+       $dataContent = Notification::query()->where('user_id', session('admin')->id)
            ->where('status',0)
            ->get()->toArray();
         $json = [

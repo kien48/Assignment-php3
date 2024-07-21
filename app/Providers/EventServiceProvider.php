@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\Author\CreateUserAuthor;
+use App\Events\Author\LookUpAuthor;
+use App\Events\Author\UnLockAuthor;
+use App\Listeners\Author\SendNotification;
+use App\Listeners\Author\SendNotificationLookUp;
+use App\Listeners\Author\SendNotificationUnLock;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,6 +22,15 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        CreateUserAuthor::class => [
+            SendNotification::class,
+        ],
+        LookUpAuthor::class => [
+            SendNotificationLookUp::class,
+        ],
+        UnLockAuthor::class => [
+            SendNotificationUnLock::class,
         ],
     ];
 

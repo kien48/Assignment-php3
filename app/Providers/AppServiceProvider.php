@@ -32,11 +32,17 @@ class AppServiceProvider extends ServiceProvider
             ->orderByDesc('catelogues.id')
             ->get();
         view()->share('dataCatelogues', $dataCatelogues);
-        $userAdmin = User::query()->where('role', 'admins')->first();
+        $userAdmin = User::query()->where('role', 'admin')->first();
         view()->share('userAdmin', $userAdmin);
         $dataTags = Tag::query()->orderByDesc('id')->get();
         view()->share('dataTags', $dataTags);
-        $dataUserAuthor = User::query()->where('role', 'author')->get();
+        $dataUserAuthor = User::query()
+            ->select('users.*', DB::raw('COUNT(articles.author_id) as article_count'))
+            ->join('articles', 'articles.author_id', '=', 'users.id')
+            ->where('users.role', 'author')
+            ->groupBy('users.id')
+            ->havingRaw('COUNT(articles.author_id) > 0')
+            ->get();
         view()->share('dataUserAuthor', $dataUserAuthor);
 
     }

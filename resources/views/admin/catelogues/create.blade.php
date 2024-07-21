@@ -31,7 +31,7 @@
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <form action="{{route('admins.catelogues.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.catelogues.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row gy-4">
                                 <div class="col-xxl-6 col-md-6">

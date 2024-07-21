@@ -846,7 +846,7 @@
        $scope.demTin = 0;
        $scope.danhSachTin = []
        $scope.getTin = ()=>{
-           $http.get('{{route('admins.api.apiCountNotification')}}')
+           $http.get('{{route('admin.api.apiCountNotification')}}')
                .then(res=>{
                    $scope.demTin = res.data.count
                    $scope.danhSachTin = res.data.data
@@ -856,7 +856,7 @@
        }
         $scope.getTin()
         $scope.daXem = (id)=>{
-            $http.patch('{{route('admins.read')}}',{
+            $http.patch('{{route('admin.read')}}',{
                 id: id
             })
                 .then(res=>{

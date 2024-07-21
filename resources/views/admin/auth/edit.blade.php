@@ -11,14 +11,14 @@
             <div class="card mt-n5">
                 <div class="card-body p-4">
                     <div class="text-center">
-                        <form action="{{route('admins.profile.update',session('admins')->id)}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('admin.profile.update',session('admin')->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                         <div class="profile-user position-relative d-inline-block mx-auto  mb-4">
-                            @if(!session('admins')->avatar)
+                            @if(!session('admin')->avatar)
                                 <img  class="rounded-circle avatar-xl img-thumbnail user-profile-image" src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
                             @else
-                                <img  class="rounded-circle avatar-xl img-thumbnail user-profile-image" src="{{\Storage::url(session('admins')->avatar)}}">
+                                <img  class="rounded-circle avatar-xl img-thumbnail user-profile-image" src="{{\Storage::url(session('admin')->avatar)}}">
                             @endif
                             <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
                                 <input id="profile-img-file-input" type="file" name="avatar" class="profile-img-file-input">
@@ -29,8 +29,8 @@
                                 </label>
                             </div>
                         </div>
-                        <h5 class="fs-16 mb-1">{{session('admins')->name}}</h5>
-                        <p class="text-muted mb-0">{{session('admins')->job}}</p>
+                        <h5 class="fs-16 mb-1">{{session('admin')->name}}</h5>
+                        <p class="text-muted mb-0">{{session('admin')->job}}</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="firstnameInput" class="form-label">Họ và tên</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter your firstname" value="{{session('admins')->name}}">
+                                            <input type="text" class="form-control" name="name" placeholder="Enter your firstname" value="{{session('admin')->name}}">
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -84,14 +84,14 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label for="emailInput" class="form-label">Địa chỉ email</label>
-                                            <input type="email" class="form-control" name="email" placeholder="Enter your email" value="{{session('admins')->email}}">
+                                            <input type="email" class="form-control" name="email" placeholder="Enter your email" value="{{session('admin')->email}}">
                                         </div>
                                     </div>
                                     <!--end col-->
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label for="JoiningdatInput" class="form-label">Công việc</label>
-                                            <input type="text" class="form-control" name="job" data-provider="flatpickr" value="{{session('admins')->job}}"/>
+                                            <input type="text" class="form-control" name="job" data-provider="flatpickr" value="{{session('admin')->job}}"/>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -99,7 +99,7 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3 pb-2">
                                             <label for="exampleFormControlTextarea" class="form-label">Câu nói</label>
-                                            <textarea name="sayings" class="form-control" id="exampleFormControlTextarea" placeholder="Enter your description" rows="3" >{{session('admins')->sayings}}
+                                            <textarea name="sayings" class="form-control" id="exampleFormControlTextarea" placeholder="Enter your description" rows="3" >{{session('admin')->sayings}}
                                             </textarea>
                                         </div>
                                     </div>

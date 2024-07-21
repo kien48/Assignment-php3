@@ -63,8 +63,8 @@
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td>
-                                        <a href="{{route('admins.catelogues.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                        <a href="{{route('admins.catelogues.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
+                                        <a href="{{route('admin.catelogues.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                                        <a href="{{route('admin.catelogues.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
                                 </td>
                             </tr>
                         @endforeach

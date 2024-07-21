@@ -60,7 +60,7 @@
         viewFunction = ($scope, $http)=>{
             $scope.name = ''
             $scope.addTag = ()=> {
-                $http.post("{{route('admins.tags.store')}}", {
+                $http.post("{{route('admin.tags.store')}}", {
                     name: $scope.name
                 }).then(function(response) {
                     Swal.fire({

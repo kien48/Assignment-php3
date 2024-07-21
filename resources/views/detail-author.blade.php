@@ -6,7 +6,7 @@
             <div class="row no-gutters justify-content-center">
                 <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
 
-                    @if(!$model->avatar)
+                    @if(empty($model->avatar))
                         <img class="author-image" src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg">
                     @else
                         <img class="author-image" src="{{\Storage::url($model->avatar)}}">

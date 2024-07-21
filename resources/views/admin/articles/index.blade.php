@@ -84,14 +84,14 @@
                                <td>{{$item->created_at}}</td>
                                <td>{{$item->updated_at}}</td>
                                <td>
-                                   @if(session('admins')->role == "editor")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Duyệt qua</a>
-                                   @elseif(session('admins')->role == "author")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
-                                       <a href="{{route('admins.articles.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                       <a href="{{route('admins.articles.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
-                                   @elseif(session('admins')->role == "admins")
-                                       <a href="{{route('admins.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
+                                   @if(session('admin')->role == "editor")
+                                       <a href="{{route('admin.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Duyệt qua</a>
+                                   @elseif(session('admin')->role == "author")
+                                       <a href="{{route('admin.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
+                                       <a href="{{route('admin.articles.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
+                                       <a href="{{route('admin.articles.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
+                                   @elseif(session('admin')->role == "admin")
+                                       <a href="{{route('admin.articles.show', $item->id)}}" class="btn btn-primary btn-sm">Xem</a>
                                    @endif
                                </td>
                            </tr>
