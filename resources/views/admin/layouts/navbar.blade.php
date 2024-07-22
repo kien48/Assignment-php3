@@ -162,6 +162,10 @@
                                             <a href="{{route('admin.users.authors.create')}}" class="nav-link" data-key="t-cover">
                                                 Thêm mới </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('admin.users.authors.listAuthorRegiter')}}" class="nav-link" data-key="t-cover">
+                                                Danh sách đăng ký </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -172,12 +176,8 @@
                                 <div class="collapse menu-dropdown" id="sidebarMember">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="auth-pass-reset-basic.html" class="nav-link" data-key="t-basic">
+                                            <a href="{{route('admin.users.members.index')}}" class="nav-link" data-key="t-basic">
                                                 Danh sách </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="auth-pass-reset-cover.html" class="nav-link" data-key="t-cover">
-                                                Thêm mới </a>
                                         </li>
                                     </ul>
                                 </div>

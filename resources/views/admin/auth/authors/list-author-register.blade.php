@@ -40,7 +40,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Danh sách Admin</h5>
+                    <h5 class="card-title mb-0">Danh sách đăng ký làm tác giả</h5>
                 </div>
                 <div class="card-body">
                     <table id="example"
@@ -50,8 +50,8 @@
                         <th>ID</th>
                         <th>Tên</th>
                         <th>Email</th>
-                        <th>Ảnh</th>
                         <th>Công việc</th>
+                        <th>Lý do đăng ký</th>
                         <th>Thời gian tạo</th>
                         <th>Thời gian cập nhật</th>
                         <th>Thao tác</th>
@@ -62,18 +62,12 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
-                                <td>
-                                    <img src="{{\Storage::url($item->avatar)}}" alt="" style="height: 50px" class="img-thumbnail; rounded-pill">
-                                </td>
                                 <td>{{$item->job}}</td>
+                                <td>{{$item->reason}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td>
-                                    @if(session('admin')->role == "admin" && $item->is_active == 1)
-                                        <a href="{{route('admin.users.admins.unLockAdmin', $item->id)}}" class="btn btn-info btn-sm">Mở khóa</a>
-                                    @else
-                                        <a href="{{route('admin.users.admins.lookUpAdmin', $item->id)}}" class="btn btn-danger btn-sm">Khóa</a>
-                                    @endif
+                                        <a href="{{route('admin.users.authors.create2', $item->id)}}" class="btn btn-info btn-sm">Duyệt</a>
                                 </td>
                             </tr>
                         @endforeach

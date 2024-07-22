@@ -74,8 +74,19 @@
                             Cơ Hội Tỏa Sáng Với Niềm Đam Mê Nấu Nướng
                         </p>
                     </div>
+                    @if(session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{session('success')}}
+                        </div>
+                    @endif
 
-                    <form method="POST" action="#">
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{session('error')}}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{route('contact.store')}}">
+                        @csrf
                         <div class="form-group">
                             <label for="name">Tên của bạn: </label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="John Doe" required>
@@ -86,13 +97,13 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Công việc hiện tại: </label>
-                            <input type="text" name="email" id="email" class="form-control" placeholder="Advertising">
+                            <input type="text" name="job" id="email" class="form-control" placeholder="Advertising">
                         </div>
                         <div class="form-group">
-                            <label for="message">Lý do đăng ký:</label>
-                            <textarea name="message" id="message" class="form-control" placeholder="Lorem ipsum dolor sit amet..."></textarea>
+                            <label for="reason">Lý do đăng ký:</label>
+                            <textarea name="reason" id="reason" class="form-control" minlength="100" placeholder="Tối thiểu 100 ký tự"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Now</button>
+                        <button type="submit" class="btn btn-primary">Đăng ký ngay</button>
                     </form>
                 </div>
             </div>

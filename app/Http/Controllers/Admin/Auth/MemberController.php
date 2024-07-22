@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -10,9 +11,12 @@ class MemberController extends Controller
     /**
      * Display a listing of the resource.
      */
+    const PATH_VIEW = 'admin.auth.members.';
+
     public function index()
     {
-        //
+        $data = User::query()->where('role', 'member')->get();
+        return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 
     /**
@@ -61,5 +65,21 @@ class MemberController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function lookUp(int $id)
+    {
+        $user = User::query()->where('id', $id)->first();
+        $data = User::query()->where('id', $id)->update([
+            'is_active' => 1
+        ]);
+        return back()->with('success', 'Khóa thành công');
+    }
+    public function unLockMembers(int $id)
+    {
+        $user = User::query()->where('id', $id)->first();
+        $data = User::query()->where('id', $id)->update([
+            'is_active' => 0
+        ]);
+        return back()->with('success', 'Mở khóa thành công');
     }
 }

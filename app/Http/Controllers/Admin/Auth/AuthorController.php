@@ -6,6 +6,7 @@ use App\Events\Author\CreateUserAuthor;
 use App\Events\Author\LookUpAuthor;
 use App\Events\Author\UnLockAuthor;
 use App\Http\Controllers\Controller;
+use App\Models\AuthorRegistration;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,11 @@ class AuthorController extends Controller
     {
         //
     }
+    public function listAuthorRegiter()
+    {
+        $data = AuthorRegistration::query()->where('handler_id', session('admin')->id)->get();
+        return view(self::PATH_VIEW.'list-author-register', compact('data'));
+    }
 
     public function lookUpAuthor(int $id)
     {
@@ -103,5 +109,13 @@ class AuthorController extends Controller
             UnLockAuthor::dispatch($user->name, $user->email);
         }
         return back()->with('success', 'Mở khóa thành công');
+    }
+
+    public function create2($id)
+    {
+        $data = AuthorRegistration::query()->where('id', $id)->first();
+        $dataName = $data->name;
+        $dataEmail = $data->email;
+        return view(self::PATH_VIEW.'create', compact('dataName', 'dataEmail'));
     }
 }

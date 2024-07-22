@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CatelogueController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +29,17 @@ Route::get('/tac-gia',[App\Http\Controllers\AuthorController::class,'index'])->n
 Route::get('/tac-gia/{id}',[App\Http\Controllers\AuthorController::class,'detail'])->name('author.detail');
 
 Route::get('/lien-he',[App\Http\Controllers\ContactController::class,'index'])->name('contact');
+Route::post('/lien-he',[App\Http\Controllers\ContactController::class,'store'])->name('contact.store');
+
 Route::view('/thong-tin-ve-toi', 'about-me')->name('about');
 Route::get('danh-muc/{slug}',[App\Http\Controllers\CatelogueController::class,'index'])->name('catelogue');
 Route::get('/tim-kiem', [App\Http\Controllers\ArticleController::class,'search'])->name('articles.search');
 
+Auth::routes();
+Route::post('/binh-luan-nhe', [App\Http\Controllers\ArticleController::class, 'addComment'])->name('addComment');
+Route::as('api.')->group(function () {
+    Route::get('/binh-luan/{id}', [App\Http\Controllers\ArticleController::class, 'apiComment'])->name('apiComment');
+});
 
 Route::prefix('/admin')->group(function (){
     Route::as('admin.')->group(function () {
@@ -44,13 +52,19 @@ Route::prefix('/admin')->group(function (){
             Route::resource('tags', TagController::class);
             Route::resource('catelogues', CatelogueController::class);
             Route::prefix('users')->as('users.')->group(function () {
+                Route::get('authors/tai-khoan-dang-ky/tạo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'create2'])->name('authors.create2');
+                Route::get('authors/tai-khoan-dang-ky', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'listAuthorRegiter'])->name('authors.listAuthorRegiter');
                 Route::get('authors/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'lookUpAuthor'])->name('authors.lookUpAuthor');
                 Route::get('authors/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AuthorController::class, 'unLockAuthor'])->name('authors.unLockAuthor');
                 Route::resource('authors', App\Http\Controllers\Admin\Auth\AuthorController::class);
                 Route::get('editors/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\EditorController::class, 'lookUpEditor'])->name('editors.lookUpEditor');
                 Route::get('editors/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\EditorController::class, 'unLockEditor'])->name('editors.unLockEditor');
                 Route::resource('editors', App\Http\Controllers\Admin\Auth\EditorController::class);
+                Route::get('admins/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AdminController::class, 'lookUpAdmin'])->name('admins.lookUpAdmin');
+                Route::get('admins/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\AdminController::class, 'unLockAdmin'])->name('admins.unLockAdmin');
                 Route::resource('admins', App\Http\Controllers\Admin\Auth\AdminController::class);
+                Route::get('members/khoa-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\MemberController::class, 'lookUpMember'])->name('members.lookUpMember');
+                Route::get('members/mo-tai-khoan/{id}', [App\Http\Controllers\Admin\Auth\MemberController::class, 'unLockMember'])->name('members.unLockMember');
                 Route::resource('members', App\Http\Controllers\Admin\Auth\MemberController::class);
             });
             Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -70,3 +84,5 @@ Route::prefix('/admin')->group(function (){
         });
     });
 });
+
+

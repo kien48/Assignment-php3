@@ -41,5 +41,9 @@ class Article extends Model
     {
         return $this->belongsTo('App\Models\User', 'editor_id');
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
 }

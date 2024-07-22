@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view(self::PATH_VIEW.__FUNCTION__);
     }
 
     /**
@@ -32,7 +32,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['role'] = 'admin';
+        $check = User::query()->create([
+            'name' => 'Admin '.$data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'role' => $data['role'],
+        ]);
+
+        if ($check) {
+            return redirect()->route('admin.users.admins.index')->with('success', 'Tạo tài khoản thành công');
+        }
+        return back()->with('error', 'Tạo tài khoản thất bại');
     }
 
     /**
@@ -65,5 +77,22 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function lookUpAdmin(int $id)
+    {
+        $user = User::query()->where('id', $id)->first();
+        $data = User::query()->where('id', $id)->update([
+            'is_active' => 1
+        ]);
+        return back()->with('success', 'Khóa thành công');
+    }
+    public function unLockAdmin(int $id)
+    {
+        $user = User::query()->where('id', $id)->first();
+        $data = User::query()->where('id', $id)->update([
+            'is_active' => 0
+        ]);
+        return back()->with('success', 'Mở khóa thành công');
     }
 }
