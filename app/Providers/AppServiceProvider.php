@@ -32,8 +32,6 @@ class AppServiceProvider extends ServiceProvider
             ->orderByDesc('catelogues.id')
             ->get();
         view()->share('dataCatelogues', $dataCatelogues);
-        $userAdmin = User::query()->where('role', 'admin')->first();
-        view()->share('userAdmin', $userAdmin);
         $dataTags = Tag::query()->orderByDesc('id')->get();
         view()->share('dataTags', $dataTags);
         $dataUserAuthor = User::query()
@@ -44,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
             ->havingRaw('COUNT(articles.author_id) > 0')
             ->get();
         view()->share('dataUserAuthor', $dataUserAuthor);
+
 
     }
 }

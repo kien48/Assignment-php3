@@ -52,7 +52,7 @@
 
                         <div ng-repeat="comment in comments" class="media d-block d-sm-flex mb-4 pb-4" style="margin-left: @{{ comment.parent_id ? '20px' : '0' }}">
                             <div class="media-body">
-                                <a href="#!" class="h4 d-inline-block mb-3">@{{ comment.user.name }}</a>
+                                <a href="#!" class="h5 d-inline-block mb-3"><i ng-show="{{$model->author_id}} == comment.user.id" class="ti ti-user text-warning">Tác giả: </i> @{{ comment.user.name }}</a>
 
                                 <p>@{{ comment.content }}</p>
 
@@ -77,10 +77,8 @@
                                     <div ng-repeat="child in comment.children" class="media d-block d-sm-flex mt-3" style="margin-left: 20px;">
                                         <img class="mr-3" src="{{asset('/themes/reader/')}}/images/post/arrow.png" alt="">
                                         <div class="media-body">
-                                            <a href="#!" class="h4 d-inline-block mb-3">@{{ child.user.name }}</a>
-
+                                            <a href="#!" class="h4 d-inline-block mb-3"><i ng-show="{{$model->author_id}} == child.user.id" class="ti-user h3 text-warning">Tác giả: </i> @{{ child.user.name }}</a>
                                             <p>@{{ child.content }}</p>
-
                                             <span class="text-black-800 mr-3 font-weight-600">@{{ child.created_at | date:'MMMM d, yyyy \a\t h:mm a' }}</span>
                                         </div>
                                     </div>
@@ -163,8 +161,6 @@
                         $scope.content = ''
                     })
             }
-
-
         }
     </script>
 @endsection

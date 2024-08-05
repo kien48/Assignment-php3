@@ -46,7 +46,7 @@
             display: inline-block;
             padding: 10px 20px;
             color: #ffffff;
-            background-color: #007bff;
+            background-color: #28a745;
             text-decoration: none;
             border-radius: 5px;
         }
@@ -65,10 +65,11 @@
         <h1>Reader</h1>
     </div>
     <div class="content">
-        <h2>Tài khoản của bạn đã được mở khóa</h2>
+        <h2>Tài khoản của bạn đã bị khóa</h2>
         <p>Xin chào {{ $name }},</p>
-        <p>Chúng tôi xin thông báo rằng tài khoản của bạn đã được mở khóa thành công. Bạn có thể tiếp tục sử dụng tài khoản của mình như bình thường.</p>
+        <p>Chúng tôi xin thông báo rằng tài khoản của bạn đã bị khóa. Bạn sẽ không thể tiếp tục sử dụng tài khoản của mình.</p>
         <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi để được trợ giúp.</p>
+        <a href="mailto:support@example.com">Liên hệ hỗ trợ</a>
     </div>
     <div class="footer">
         <p>&copy; 2024 Reader. All rights reserved.</p>

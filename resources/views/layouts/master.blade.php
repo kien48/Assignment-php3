@@ -70,6 +70,17 @@
 <script>
     let myApp = angular.module('myApp', []);
     myApp.controller('myCtrl', function($scope) {
+        $scope.checkPass = ''
+        $scope.changePass = ()=>{
+            $http.patch('{{route('user.changePassword')}}', {
+                oldpass : $scope.oldpass,
+                newpass : $scope.newpass,
+                renewpass : $scope.renewpass
+            })
+                .then(res=>{
+                    $scope.checkPass = res.data.message
+                })
+        }
     });
     function viewFunction($scope, $http) {
     }

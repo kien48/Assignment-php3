@@ -122,21 +122,27 @@
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="oldpasswordInput" class="form-label">Mật khẩu cũ*</label>
-                                            <input type="password" class="form-control" id="oldpasswordInput" placeholder="Enter current password">
+                                            <input type="password" class="form-control" ng-model="oldpass" id="oldpasswordInput" placeholder="Enter current password">
+                                            <span class="text-danger" ng-show="oldpass == ''">Không được để trống</span>
+                                            <span class="text-danger" ng-show="checkPass != ''">@{{ checkPass }}</span>
                                         </div>
                                     </div>
                                     <!--end col-->
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="newpasswordInput" class="form-label">Mật khẩu mới*</label>
-                                            <input type="password" class="form-control" id="newpasswordInput" placeholder="Enter new password">
+                                            <input type="password" class="form-control" ng-model="newpass" id="newpasswordInput" placeholder="Enter new password">
+                                            <span class="text-danger" ng-show="newpass == ''">Không được để trống</span>
                                         </div>
                                     </div>
                                     <!--end col-->
                                     <div class="col-lg-4">
                                         <div>
                                             <label for="confirmpasswordInput" class="form-label">Nhập lại mật khẩu*</label>
-                                            <input type="password" class="form-control" id="confirmpasswordInput" placeholder="Confirm password">
+                                            <input type="password" class="form-control" ng-model="renewpass" id="confirmpasswordInput" placeholder="Confirm password">
+                                            <span class="text-danger" ng-show="renewpass == ''">Không được để trống</span>
+                                            <span class="text-danger" ng-show="renewpass != newpass">Không trùng với mật khẩu mới</span>
+
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -148,7 +154,7 @@
                                     <!--end col-->
                                     <div class="col-lg-12">
                                         <div class="text-end">
-                                            <button type="submit" class="btn btn-success">Đổi mật khẩu</button>
+                                            <button type="button" ng-click="changePass()" class="btn btn-success" ng-disabled="oldpass == '' || newpass == '' || renewpass == ''">Đổi mật khẩu</button>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -162,4 +168,22 @@
         </div>
         <!--end col-->
     </div>
+@endsection
+
+@section('js')
+    <script>
+        viewFunction = ($scope,$http)=> {
+            $scope.checkPass = ''
+            $scope.changePass = ()=>{
+                $http.put('{{route('admin.changePassword')}}', {
+                    oldpass : $scope.oldpass,
+                    newpass : $scope.newpass,
+                    renewpass : $scope.renewpass
+                })
+                    .then(res=>{
+                        $scope.checkPass = res.data.message
+                    })
+            }
+        }
+    </script>
 @endsection

@@ -12,19 +12,6 @@
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Datatables</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Datatables</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
 
     @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -55,6 +42,7 @@
                         <th>Ảnh</th>
                         <th>Lượt xem</th>
                         <th>Tác giả</th>
+                        <th>Số bình luận</th>
                         <th>Người duyệt</th>
                         <th>Trạng thái</th>
                         <th>Thời gian tạo</th>
@@ -79,6 +67,7 @@
                                </td>
                                <td>{{$item->views}}</td>
                                <td>{{$item->author->name}}</td>
+                               <td>{{count($item->comments)}}</td>
                                <td>{{$editor}}</td>
                                <td>{{$item->status}}</td>
                                <td>{{$item->created_at}}</td>

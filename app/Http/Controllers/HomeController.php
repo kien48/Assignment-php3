@@ -22,8 +22,11 @@ class HomeController extends Controller
         $articlesViews = Article::query()->with(['author','tags'])
             ->where('status','published')
             ->orderByDesc('views')->first();
-        $articlesNews = Article::query()->with(['author','tags'])
-            ->orderByDesc('id')->limit('5')->get();
+        $articlesNews = Article::query()
+            ->with(['author', 'tags'])
+            ->where('status','published')
+            ->orderByDesc('id')
+            ->paginate(5);
         return view('home',compact('tags','articlesEditor','articlesTrending','articlesViews','articlesNews'));
     }
 }

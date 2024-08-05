@@ -10,19 +10,6 @@
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Datatables</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Datatables</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
 
     @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -69,10 +56,10 @@
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td>
-                                    @if(session('admin')->role == "admin" && $item->is_active == 1)
+                                    @if(session('admin')->role == "boss")
+                                        @if($item->is_active == 1)
                                         <a href="{{route('admin.users.admins.unLockAdmin', $item->id)}}" class="btn btn-info btn-sm">Mở khóa</a>
-                                    @else
-                                        <a href="{{route('admin.users.admins.lookUpAdmin', $item->id)}}" class="btn btn-danger btn-sm">Khóa</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>

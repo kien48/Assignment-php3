@@ -10,19 +10,6 @@
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Datatables</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Datatables</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
 
     @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -52,6 +39,7 @@
                         <th>Email</th>
                         <th>Ảnh</th>
                         <th>Công việc</th>
+                        <th>Tổng bài viết</th>
                         <th>Thời gian tạo</th>
                         <th>Thời gian cập nhật</th>
                         <th>Thao tác</th>
@@ -66,13 +54,16 @@
                                     <img src="{{\Storage::url($item->avatar)}}" alt="" style="height: 50px" class="img-thumbnail; rounded-pill">
                                 </td>
                                 <td>{{$item->job}}</td>
+                                <td>{{count($item->articles)}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>{{$item->updated_at}}</td>
                                 <td>
-                                    @if(session('admin')->role == "admin" && $item->is_active == 1)
-                                        <a href="{{route('admin.users.authors.unLockAuthor', $item->id)}}" class="btn btn-info btn-sm">Mở khóa</a>
-                                    @else
-                                        <a href="{{route('admin.users.authors.lookUpAuthor', $item->id)}}" class="btn btn-danger btn-sm">Khóa</a>
+                                    @if(session('admin')->role == "admin")
+                                        @if($item->is_active == 1)
+                                            <a href="{{route('admin.users.authors.unLockAuthor', $item->id)}}" class="btn btn-info btn-sm">Mở khóa</a>
+                                        @else
+                                            <a href="{{route('admin.users.authors.lookUpAuthor', $item->id)}}" class="btn btn-danger btn-sm">Khóa</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>

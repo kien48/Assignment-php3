@@ -33,11 +33,6 @@
         </div>
 
         <div class="order-2 order-lg-3 d-flex align-items-center">
-{{--            <select class="m-2 border-0 bg-transparent" id="select-language">--}}
-{{--                <option id="en" value="" selected><i class="ti-user"></i> Đăng ký</option>--}}
-{{--                <option id="en" value="" selected><i class="ti-user"></i> Đăng nhập</option>--}}
-{{--            </select>--}}
-
             <!-- search -->
             <form class="search-bar" action="{{route('articles.search')}}" method="get">
                 <input id="search-query" name="query" type="search" placeholder="Bạn muốn tìm gì">
@@ -48,9 +43,15 @@
                         <i class="ti-user"></i> {{Auth::user()->name}}
                     </button>
                     <div class="dropdown-menu">
+                        <button type="button" class="btn btn-primary btn-custom-sm" data-toggle="modal" data-target="#myModalThongTin">
+                            Đổi thông tin
+                        </button>
+                        <button type="button" class="btn btn-primary btn-custom-sm" data-toggle="modal" data-target="#myModalDoiMatKhau">
+                            Đổi mật khẩu
+                        </button>
                         <form action="{{route('logout')}}" method="post">
                             @csrf
-                            <button type="submit" class="dropdown-item btn btn-sm">Đăng xuất</button>
+                            <button type="submit" class=" btn btn-primary btn-custom-sm">Đăng xuất</button>
                         </form>
                     </div>
                 </div>

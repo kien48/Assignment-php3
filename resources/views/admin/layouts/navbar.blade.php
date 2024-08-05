@@ -3,20 +3,20 @@
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
         <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{asset('/themes/velzon/')}}/assets/images/logo-sm.png" alt="" height="22">
+                    <span class="logo-sm text-dark "  style="font-size: 30px">
+                        Quản trị
                     </span>
-            <span class="logo-lg">
-                        <img src="{{asset('/themes/velzon/')}}/assets/images/logo-dark.png" alt="" height="17">
+            <span class="logo-lg text-dark " style="font-size: 30px">
+                       Quản trị
                     </span>
         </a>
         <!-- Light Logo-->
         <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{asset('/themes/velzon/')}}/assets/images/logo-sm.png" alt="" height="22">
+                    <span class="logo-sm text-white " style="font-size: 30px">
+                        Quản trị
                     </span>
-            <span class="logo-lg">
-                        <img src="{{asset('/themes/velzon/')}}/assets/images/logo-light.png" alt="" height="17">
+            <span class="logo-lg text-white " style="font-size: 30px">
+                        Quản trị
                     </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -50,13 +50,6 @@
                                 <li class="nav-item">
                                     <a href="{{route('admin.articles.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
-                                </li>
-                                @elseif(session('admin')->role == 'admin')
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
-                                </li>
                             @endif
                         </ul>
                     </div>
@@ -73,13 +66,6 @@
                             @if(session('admin')->role == 'editor')
                                 <li class="nav-item">
                                     <a href="{{route('admin.catelogues.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
-                                </li>
-                            @elseif(session('admin')->role == 'admin')
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
                                 </li>
                             @endif
                         </ul>
@@ -98,13 +84,6 @@
                                 <li class="nav-item">
                                     <a href="{{route('admin.tags.create')}}" class="nav-link" data-key="t-detached">Tạo mới</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
-                                </li>
-                            @elseif(session('admin')->role == 'admin')
-                                <li class="nav-item">
-                                    <a href="layouts-two-column.html" target="_blank" class="nav-link" data-key="t-two-column">Thống kê</a>
-                                </li>
                             @endif
                         </ul>
                     </div>
@@ -115,73 +94,87 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="#sidebarAdmin" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> QUản trị viên
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarAdmin">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.admins.index')}}" class="nav-link" data-key="t-basic"> Danh sách
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.admins.create')}}" class="nav-link" data-key="t-cover"> Thêm mới
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#sidebarEditor" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignUp" data-key="t-signup"> Biên tập
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarEditor">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.editors.index')}}" class="nav-link" data-key="t-basic"> Danh sách
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.editors.create')}}" class="nav-link" data-key="t-cover"> Thêm mới
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            @if(in_array(session('admin')->role, ['admin', 'editor']))
+                                <li class="nav-item">
+                                    <a href="#sidebarAdmin" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignIn" data-key="t-signin"> QUản trị viên
+                                    </a>
+                                    <div class="collapse menu-dropdown" id="sidebarAdmin">
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="{{route('admin.users.admins.index')}}" class="nav-link" data-key="t-basic"> Danh sách
+                                                </a>
+                                            </li>
+                                            @if(session('admin')->role == 'boss')
+                                                <li class="nav-item">
+                                                    <a href="{{route('admin.users.admins.create')}}" class="nav-link" data-key="t-cover"> Thêm được
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endif
+                            @if(in_array(session('admin')->role, ['admin', 'author', 'editor']))
+                                    <li class="nav-item">
+                                        <a href="#sidebarEditor" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSignUp" data-key="t-signup"> Biên tập
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarEditor">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="{{route('admin.users.editors.index')}}" class="nav-link" data-key="t-basic"> Danh sách
+                                                    </a>
+                                                </li>
+                                                @if(session('admin')->role == 'admin')
+                                                    <li class="nav-item">
+                                                        <a href="{{route('admin.users.editors.create')}}" class="nav-link" data-key="t-cover"> Thêm mới
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endif
 
-                            <li class="nav-item">
-                                <a href="#sidebarAuthor" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
-                                   Tác giả
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarAuthor">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.authors.index')}}" class="nav-link" data-key="t-basic">
-                                                Danh sách </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.authors.create')}}" class="nav-link" data-key="t-cover">
-                                                Thêm mới </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.authors.listAuthorRegiter')}}" class="nav-link" data-key="t-cover">
-                                                Danh sách đăng ký </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#sidebarMember" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
-                                    Thành viên
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarMember">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{route('admin.users.members.index')}}" class="nav-link" data-key="t-basic">
-                                                Danh sách </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                           @if(in_array(session('admin')->role, ['admin', 'author', 'editor', 'member']))
+                                    <li class="nav-item">
+                                        <a href="#sidebarAuthor" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
+                                            Tác giả
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarAuthor">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="{{route('admin.users.authors.index')}}" class="nav-link" data-key="t-basic">
+                                                        Danh sách </a>
+                                                </li>
+                                                @if(session('admin')->role == 'admin')
+                                                    <li class="nav-item">
+                                                        <a href="{{route('admin.users.authors.create')}}" class="nav-link" data-key="t-cover">
+                                                            Thêm mới </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{route('admin.users.authors.listAuthorRegiter')}}" class="nav-link" data-key="t-cover">
+                                                            Danh sách đăng ký </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endif
+                            @if(session('admin')->role == 'admin')
+                                    <li class="nav-item">
+                                        <a href="#sidebarMember" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarResetPass" data-key="t-password-reset">
+                                            Thành viên
+                                        </a>
+                                        <div class="collapse menu-dropdown" id="sidebarMember">
+                                            <ul class="nav nav-sm flex-column">
+                                                <li class="nav-item">
+                                                    <a href="{{route('admin.users.members.index')}}" class="nav-link" data-key="t-basic">
+                                                        Danh sách </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endif
                         </ul>
                     </div>
                 </li>

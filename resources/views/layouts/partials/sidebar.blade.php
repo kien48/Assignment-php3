@@ -1,13 +1,6 @@
 <aside class="col-lg-4 sidebar-home">
     <!-- Search -->
     <!-- about me -->
-    <div class="widget widget-about">
-        <h4 class="widget-title">Xin chào, Tôi là {{$userAdmin->name}}!</h4>
-        <img class="img-fluid" src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474094mGh/avatar-anime-nam-co-don-dep_085121210.jpg" alt="Themefisher">
-        <p>{{$userAdmin->sayings}}</p>
-        <a href="{{route('about')}}" class="btn btn-primary mb-2">Thông tin về tôi</a>
-    </div>
-
     <!-- authors -->
     <div class="widget widget-author">
         <h4 class="widget-title">Tác giả</h4>

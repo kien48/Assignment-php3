@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ChangePassword;
 use App\Http\Controllers\Controller;
+use App\Models\Follower;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +30,7 @@ class AuthController extends Controller
             $request->session()->put('admin', $user);
             return redirect()->route('admin.home');
         } else {
-            return redirect()->back()->with('error', 'Email or Password is incorrect');
+            return redirect()->back()->with('error', 'Email hoặc Mật khẩu không đúng');
         }
     }
 
@@ -49,11 +51,10 @@ class AuthController extends Controller
                 $total++;
             }
         }
-        if($total==0){
-            $percent = 0;
-        }
         $percent = $total / 3 * 100;
-        return view('admin.auth.profile',compact('percent'));
+        $folowers = Follower::query()->where('author_id', session('admin')->id)->count();
+        $followings = Follower::query()->where('member_id', session('admin')->id)->count();
+        return view('admin.auth.profile',compact('percent','folowers','followings'));
     }
     public function edit()
     {
@@ -85,5 +86,30 @@ class AuthController extends Controller
         }
         session(['admin' => User::find($id)]);
         return back();
+    }
+
+    public function changePassword(Request $request)
+    {
+        $data = $request->all();
+        if(!Hash::check($data['oldpass'], session('admin')->password)){
+            $json = [
+                'message' => 'Mật khẩu không đúng với mật khẩu hiện tại'
+            ];
+            return response()->json($json, 200);
+        }
+
+        $check = User::query()->where('id', session('admin')->id)->update([
+            'password' => bcrypt($data['newpass'])
+        ]);
+        $name = session('admin')->name;
+        $email = session('admin')->email;
+        $password = $data['newpass'];
+        if($check){
+            ChangePassword::dispatch($name, $email, $password);
+        }
+        $json = [
+            'message' => 'Mật khẩu đã đổi thành công'
+        ];
+        return response()->json($json, 200);
     }
 }

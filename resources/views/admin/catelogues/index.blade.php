@@ -10,19 +10,6 @@
 @endsection
 
 @section('content')
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Datatables</h4>
-
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Datatables</li>
-                </ol>
-            </div>
-
-        </div>
-    </div>
 
     @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -64,7 +51,11 @@
                                 <td>{{$item->updated_at}}</td>
                                 <td>
                                         <a href="{{route('admin.catelogues.edit', $item->id)}}" class="btn btn-warning btn-sm">Sửa</a>
-                                        <a href="{{route('admin.catelogues.destroy', $item->id)}}" class="btn btn-danger btn-sm">Xóa</a>
+                                    <form action="{{route('admin.catelogues.destroy', $item->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

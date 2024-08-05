@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,5 +57,13 @@ class ArticleController extends Controller
             'article_id' => $data['article_id'],
             'parent_id' =>   $data['parent_id'] ?? null,
         ]);
+        $userAuthor = Article::query()->where('id', $data['article_id'])->select('author_id')->first();
+        $article = Article::query()->where('id', $data['article_id'])->first();
+        if($userAuthor->author_id != $article->author_id){
+            Notification::query()->create([
+                'user_id' =>$userAuthor->author_id,
+                'content' => Auth::user()->name . ' đã bình luận bài viết "' . $article->title . '" của bạn',
+            ]);
+        }
     }
 }

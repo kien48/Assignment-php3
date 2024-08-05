@@ -3,9 +3,10 @@
 namespace App\Listeners\Author;
 
 use App\Events\Author\CreateUserAuthor;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendNotification
+class SendNotification implements ShouldQueue
 {
     /**
      * Create the event listener.

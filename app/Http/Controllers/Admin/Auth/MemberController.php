@@ -66,7 +66,7 @@ class MemberController extends Controller
     {
         //
     }
-    public function lookUp(int $id)
+    public function lookUpMember(int $id)
     {
         $user = User::query()->where('id', $id)->first();
         $data = User::query()->where('id', $id)->update([
@@ -74,7 +74,7 @@ class MemberController extends Controller
         ]);
         return back()->with('success', 'Khóa thành công');
     }
-    public function unLockMembers(int $id)
+    public function unLockMember(int $id)
     {
         $user = User::query()->where('id', $id)->first();
         $data = User::query()->where('id', $id)->update([

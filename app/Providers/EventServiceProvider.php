@@ -5,9 +5,13 @@ namespace App\Providers;
 use App\Events\Author\CreateUserAuthor;
 use App\Events\Author\LookUpAuthor;
 use App\Events\Author\UnLockAuthor;
+use App\Events\ChangePassword;
+use App\Events\News;
 use App\Listeners\Author\SendNotification;
 use App\Listeners\Author\SendNotificationLookUp;
 use App\Listeners\Author\SendNotificationUnLock;
+use App\Listeners\SendNew;
+use App\Listeners\SendNotificationChangePassword;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,6 +35,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         UnLockAuthor::class => [
             SendNotificationUnLock::class,
+        ],
+        ChangePassword::class => [
+            SendNotificationChangePassword::class,
+        ],
+        News::class => [
+            SendNew::class,
         ],
     ];
 

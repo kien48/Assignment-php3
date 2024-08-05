@@ -18,18 +18,17 @@
                         <div class="content">
                             <p>{{$model->sayings}}</p>
                         </div>
-
                         <a class="post-count mb-1" href="author-single.html#post"><i class="ti-pencil-alt mr-2"></i><span
                                 class="text-primary">{{$model->total}}</span> bài viết của tác giả</a>
                         <ul class="list-inline social-icons">
-
-                            <li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
-
+                            @if(Auth()->user()->id != $model->id)
+                                <button ng-show="checkFollow == false" ng-click="follow()" class="btn">Theo dõi</button>
+                                <button ng-show="checkFollow == true" ng-click="unFollow()" class="btn btn-primary">Đã theo dõi</button>
+                            @endif
                         </ul>
                 </div>
             </div>
         </div>
-
         <svg class="author-shape-1" width="39" height="40" viewBox="0 0 39 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.965848 20.6397L0.943848 38.3906L18.6947 38.4126L18.7167 20.6617L0.965848 20.6397Z" stroke="#040306"
                   stroke-miterlimit="10" />
@@ -69,7 +68,6 @@
             <path d="M20.0078 1.62949L19.9858 19.3804L37.7367 19.4024L37.7587 1.65149L20.0078 1.62949Z" stroke="#040306"
                   stroke-miterlimit="10" />
         </svg>
-
 
         <svg class="author-border" height="240" viewBox="0 0 2202 240" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -126,6 +124,29 @@
 
                 @endforeach
             </div>
+            {!! $dataArticle->links('custom') !!}
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+        viewFunction = ($scope, $http)=>{
+            $scope.checkFollow = {{$status}}
+                $scope.follow = ()=>{
+                $http.post('{{route('follow')}}',{
+                    author_id: {{$model->id}}
+                }).then((res)=>{
+                    $scope.checkFollow = true
+                })
+            }
+            $scope.unFollow = ()=>{
+                $http.post('{{route('unFollow')}}',{
+                    author_id: {{$model->id}}
+                }).then((res)=>{
+                    $scope.checkFollow = false
+                })
+            }
+        }
+    </script>
 @endsection

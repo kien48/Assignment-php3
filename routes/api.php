@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/danh-muc/{slug}', [App\Http\Controllers\Api\ArticleController::class, 'tinTheoLoai']);
+Route::get('/chi-tiet/{slug}', [App\Http\Controllers\Api\ArticleController::class, 'chiTietTin']);

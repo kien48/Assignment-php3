@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\News;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Catelogue;
+use App\Models\Follower;
 use App\Models\Notification;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -20,7 +22,15 @@ class ArticleController extends Controller
     const PATH_VIEW = 'admin.articles.';
     public function index()
     {
-        $data = Article::query()->with(['tags','catelogue','author','editor'])->orderByDesc('id')->get();
+        $data = [];
+        if(in_array(session('admin')->role, ['admin', 'editor'])){
+            $data = Article::query()->with(['tags','catelogue','author','editor','comments'])->orderByDesc('id')->get();
+        }
+        if(session('admin')->role == 'author'){
+            $data = Article::query()->with(['tags','catelogue','author','editor','comments'])
+                ->where('author_id',session('admin')->id)
+                ->orderByDesc('id')->get();
+        }
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
@@ -76,12 +86,17 @@ class ArticleController extends Controller
             $data['is_trending'] = $data['is_trending'] ?? 0;
             $data['editor_id'] = session('admin')->id;
             Article::query()->where('id', $id)->update($data);
-
+            $article = Article::query()->findOrFail($id);
             if($request->status == 'published'){
                 Notification::query()->create([
                     'user_id' => $data['author_id'],
                     'content' => "Bài viết $request->title đã được duyệt",
                 ]);
+                $link = route('detail', $article->slug);
+                $followers = Follower::query()->with(['member','author'])->where('author_id', $data['author_id'])->get();
+                foreach ($followers as $follower){
+                    News::dispatch($follower->member->name,$follower->author->name,$follower->member->email,$request->title,$link);
+                }
             }else{
                 Notification::query()->create([
                     'user_id' => $data['author_id'],
@@ -101,7 +116,9 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $model = Article::query()->with(['tags','catelogue','author'])->findOrFail($id);
+        $dataCatelogues = Catelogue::query()->orderByDesc('id')->get();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('model','dataCatelogues'));
     }
 
     /**

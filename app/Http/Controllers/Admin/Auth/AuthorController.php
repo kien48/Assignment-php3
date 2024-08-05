@@ -7,6 +7,8 @@ use App\Events\Author\LookUpAuthor;
 use App\Events\Author\UnLockAuthor;
 use App\Http\Controllers\Controller;
 use App\Models\AuthorRegistration;
+use App\Models\Follower;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class AuthorController extends Controller
     const PATH_VIEW = 'admin.auth.authors.';
     public function index()
     {
-        $data = User::query()->where('role', 'author')->get();
+        $data = User::query()->with('articles')->where('role', 'author')->get();
         return view(self::PATH_VIEW.__FUNCTION__, compact('data'));
     }
 

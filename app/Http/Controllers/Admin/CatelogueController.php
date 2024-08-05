@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\Catelogue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -82,6 +83,13 @@ class CatelogueController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+          $dataArticle = Article::query()->where('catelogue_id', $id)->get();
+          foreach ($dataArticle as $item){
+              if($item->catelogue_id == $id){
+                  return back()->with('error','Xóa danh mục thất bại do có bài viết đang sử dụng');
+              }
+          }
+          Catelogue::query()->find($id)->delete();
+          return back()->with('success','Xóa danh mục thành công');
     }
 }

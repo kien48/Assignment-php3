@@ -65,12 +65,11 @@
         <h1>Reader</h1>
     </div>
     <div class="content">
-        <h2>Thông tin tài khoản của bạn</h2>
+        <h2>Đổi mật khẩu thành công</h2>
         <p>Xin chào {{ $name }},</p>
         <p>Đây là thông tin đăng nhập của bạn:</p>
         <p><strong>Email:</strong> {{ $email }}</p>
-        <p><strong>Mật khẩu:</strong> {{ $password }}</p>
-        <p>Vui lòng đăng nhập và đổi mật khẩu để bảo mật tài khoản của bạn.</p>
+        <p><strong>Mật khẩu mới:</strong> {{ $password }}</p>
         <a href="{{ url('/') }}">Đăng nhập ngay</a>
     </div>
     <div class="footer">

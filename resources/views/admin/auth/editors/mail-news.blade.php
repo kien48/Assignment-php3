@@ -65,13 +65,12 @@
         <h1>Reader</h1>
     </div>
     <div class="content">
-        <h2>Thông tin tài khoản của bạn</h2>
+        <h2>Bài viết mới từ tác giả bạn theo dõi</h2>
         <p>Xin chào {{ $name }},</p>
-        <p>Đây là thông tin đăng nhập của bạn:</p>
-        <p><strong>Email:</strong> {{ $email }}</p>
-        <p><strong>Mật khẩu:</strong> {{ $password }}</p>
-        <p>Vui lòng đăng nhập và đổi mật khẩu để bảo mật tài khoản của bạn.</p>
-        <a href="{{ url('/') }}">Đăng nhập ngay</a>
+        <p>Bạn có một bài viết mới từ tác giả {{ $author_name }}:</p>
+        <p><strong>Tiêu đề:</strong> {{ $title }}</p>
+        <p>Bạn có thể đọc bài viết tại đường dẫn dưới đây:</p>
+        <a href="{{ $link }}">Đọc bài viết</a>
     </div>
     <div class="footer">
         <p>&copy; 2024 Reader. All rights reserved.</p>

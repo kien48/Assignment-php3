@@ -3,9 +3,10 @@
 namespace App\Listeners\Author;
 
 use App\Events\Author\LookUpAuthor;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendNotificationLookUp
+class SendNotificationLookUp implements ShouldQueue
 {
     /**
      * Create the event listener.
